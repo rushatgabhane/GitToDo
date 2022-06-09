@@ -7,11 +7,11 @@ class App extends React.Component {
 
         this.state = {
             tasks: [],
-        }
+        };
     }
 
     render() {
-        return(
+        return (
             <>
                 <h1 className="text-3xl font-bold underline">Hello world!</h1>
                 <CardList

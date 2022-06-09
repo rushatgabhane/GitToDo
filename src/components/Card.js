@@ -1,7 +1,5 @@
-const Card = () => {
-    return (
-        <div></div>
-    );
-}
+const Card = () => (
+    <div />
+);
 
 export default Card;
