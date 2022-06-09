@@ -1,0 +1,65 @@
+# name of your github action
+name: Build Electron
+# this will help you specify where to run 
+on:
+  push:
+    branches:
+      - production
+jobs:
+#   build_on_mac:
+#     runs-on: macOS-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#       with:
+#         ref: production
+#     - uses: actions/setup-node@v2
+#       with:
+#         node-version: 14.16
+#     - name: Install dependencies
+#       run: npm ci
+#     - name: Build
+#       run: npm run build
+#     - name: ls dist/
+#       run: ls ./dist
+  build_on_win:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: production
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.16
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build
+      env:
+          GH_TOKEN: ${{ github.token }}
+    - name: DIR dist/
+      run: DIR ./dist
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: 0.0.1
+        files: '.\dist\gitwatch Setup 1.0.0.exe'
+  build_on_ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: production
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14.16
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build
+    - name: ls dist/
+      run: ls ./dist
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: 0.0.1
+        files: ./dist/gitwatch_1.0.0_amd64.deb

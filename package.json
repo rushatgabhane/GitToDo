@@ -1,0 +1,78 @@
+{
+  "name": "gitwatch",
+  "version": "1.0.0",
+  "description": "GitHub Notification Manager",
+  "main": "src/electron.js",
+  "targets": {
+    "main": false
+  },
+  "scripts": {
+    "react-start": "parcel -p 3000 index.html --dist-dir build",
+    "react-build": "parcel build index.html --dist-dir build --public-url ./",
+    "electron-build": "electron-builder",
+    "clean-build": "run-script-os",
+    "clean-build:win32": "for %d in (.\\build\\ .\\dist\\ .\\.parcel-cache\\) do (if exist \"%d\" rmdir \"%d\" /s /q)",
+    "clean-build:default": "rm -rf ./build/ .parcel-cache/ ./dist/",
+    "build": "npm run clean-build && npm run react-build && npm run electron-build",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron . \"",
+    "lint": "eslint . --max-warnings=0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GitNotifier/GitWatch.git"
+  },
+  "author": "John Doe <john@doe.com>",
+  "bugs": {
+    "url": "https://github.com/GitNotifier/GitWatch/issues"
+  },
+  "homepage": "./",
+  "license": "MIT",
+  "dependencies": {
+    "@radix-ui/react-accordion": "^0.1.6",
+    "@radix-ui/react-collapsible": "^0.1.6",
+    "@rehooks/local-storage": "^2.4.4",
+    "electron-is-dev": "^2.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-window": "^1.8.6"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^16.0.10",
+    "electron-builder": "^22.14.13",
+    "eslint": "^7.32.0",
+    "eslint-config-expensify": "^2.0.23",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-detox": "^1.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^24.7.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.3",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "parcel": "^2.3.2",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "run-script-os": "^1.1.6",
+    "wait-on": "^6.0.1"
+  },
+  "build": {
+    "appId": "com.gitwatch",
+    "files": [
+      "src/electron.js",
+      "src/assets/*",
+      "build/**/*"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb",
+      "category": "Productivity"
+    }
+  }
+}
