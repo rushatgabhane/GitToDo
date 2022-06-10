@@ -7,15 +7,13 @@ async function signIn() {
     }, {
         scopes: 'repo notifications user:email',
     });
-    if (error) { console.error('[GITHUB] failed to sign in', error); }
-
-    const oAuthToken = session.provider_token;
-    console.log(user, oAuthToken);
+    if (error) { 
+        return console.error('[GITHUB] failed to sign in', error); 
+    }
 }
 
 async function signOut() {
-    const res = await supabase.auth.signOut();
-    console.log(res);
+    await supabase.auth.signOut();
 }
 
 export {
