@@ -2,7 +2,7 @@
   "name": "gitwatch",
   "version": "1.0.0",
   "description": "GitHub Notification Manager",
-  "main": "src/electron.js",
+  "main": "./electron/electron.js",
   "targets": {
     "main": false
   },
@@ -31,7 +31,9 @@
     "@radix-ui/react-accordion": "^0.1.6",
     "@radix-ui/react-collapsible": "^0.1.6",
     "@rehooks/local-storage": "^2.4.4",
+    "@supabase/supabase-js": "^1.35.3",
     "electron-is-dev": "^2.0.0",
+    "netlify-auth-providers": "^1.0.0-alpha5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-window": "^1.8.6"
