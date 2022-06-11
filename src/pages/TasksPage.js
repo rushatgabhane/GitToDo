@@ -8,7 +8,8 @@ const checkUser = () => {
 };
 
 const TasksPage = () => {
-    const {signOut} = useAuthContext();
+    const {signOut, currentSession} = useAuthContext();
+    console.log('Current session: ', currentSession);
     return (
         <>
             <h1>Hello world!</h1>

@@ -19,22 +19,20 @@ class AuthProvider extends React.Component {
 
         this.state = {
             user: null,
+            currentSession: null,
         };
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
     }
 
     componentDidMount() {
-        this.setState({
-            user: supabase.auth.user(),
-        });
-
         // This is a workaround because returns null after a sign in
         // https://github.com/supabase/gotrue/issues/173
         supabase.auth.onAuthStateChange((event, session) => {
             const user = _.get(session, 'user', null);
             this.setState({
                 user,
+                currentSession: localStorage.getItem('supabase.auth.token'),
             });
         });
     }
@@ -42,9 +40,9 @@ class AuthProvider extends React.Component {
     signIn() {
         Github.signIn()
             .then(() => {
-                const user = supabase.auth.user();
                 this.setState({
-                    user,
+                    user: supabase.auth.user(),
+                    currentSession: localStorage.getItem('supabase.auth.token'),
                 });
             });
     }
@@ -54,6 +52,7 @@ class AuthProvider extends React.Component {
             .then(() => {
                 this.setState({
                     user: null,
+                    currentSession: null,
                 });
 
                 // Clear localStorage for security
@@ -65,6 +64,7 @@ class AuthProvider extends React.Component {
         return (
             <AuthContext.Provider value={{
                 user: this.state.user,
+                currentSession: this.state.currentSession,
                 signIn: this.signIn,
                 signOut: this.signOut,
             }}
