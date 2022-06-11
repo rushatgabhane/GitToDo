@@ -1,6 +1,6 @@
-import AuthContext from "./AuthContext";
-import AuthProvider from "./AuthProvider";
-import useAuthContext from "./useAuthContext";
+import AuthContext from './AuthContext';
+import AuthProvider from './AuthProvider';
+import useAuthContext from './useAuthContext';
 
 export {
     AuthContext,

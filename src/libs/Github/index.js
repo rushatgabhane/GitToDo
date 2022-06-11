@@ -6,15 +6,15 @@ async function signIn() {
         provider: 'github',
     }, {
         scopes: 'repo notifications user:email',
-    })
-    if (error) { 
-        console.error('[GITHUB] failed to sign in', error); 
+    });
+    if (error) {
+        console.error('[GITHUB] failed to sign in', error);
     }
 }
 
 async function signOut() {
     const {error} = await supabase.auth.signOut();
-    if(error) {
+    if (error) {
         console.error(error);
     }
 }

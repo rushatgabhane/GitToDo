@@ -2,8 +2,8 @@ import {useAuthContext} from '../context/AuthContext';
 import supabase from '../libs/supabase';
 
 const checkUser = () => {
-    console.log(supabase.auth.user());
-}
+    console.info(supabase.auth.user());
+};
 
 const SignInPage = () => {
     const {signIn} = useAuthContext();
@@ -14,6 +14,6 @@ const SignInPage = () => {
             <button type="submit" onClick={() => checkUser()}>Check user</button>
         </>
     );
-}
+};
 
 export default SignInPage;

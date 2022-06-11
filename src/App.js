@@ -5,7 +5,7 @@ import {AuthContext} from './context/AuthContext';
 
 class App extends React.Component {
     render() {
-        return(
+        return (
             this.context.user ? <TasksPage /> : <SignInPage />
         );
     }
