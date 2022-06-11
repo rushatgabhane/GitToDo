@@ -1,6 +1,14 @@
-import * as Github from './libs/Github';
+import CardList from '../components/CardList';
+import * as Github from '../libs/Github';
+import supabase from '../libs/supabase';
+import {useAuthContext} from '../context/AuthContext';
+
+const checkUser = () => {
+    console.log(supabase.auth.user());
+}
 
 const TasksPage = () => {
+    const {signOut} = useAuthContext();
     return (
         <>
             <h1>Hello world!</h1>
@@ -8,8 +16,8 @@ const TasksPage = () => {
                 title="Todo"
                 // tasks={this.state.tasks}
             />
-            {/* <button type="submit" onClick={this.signOut}>Sign Out</button>
-            <button type="submit" onClick={this.checkUser}>Check user</button> */}
+            <button type="submit" onClick={() => signOut()}>Sign Out</button>
+            <button type="submit" onClick={() => checkUser()}>Check user</button>
         </>
     );
 }

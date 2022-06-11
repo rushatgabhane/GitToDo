@@ -1,10 +1,13 @@
-import * as Github from './libs/Github';
+import {useAuthContext} from '../context/AuthContext';
+import supabase from '../libs/supabase';
 
 const SignInPage = () => {
+    const {signIn} = useAuthContext();
     return (
         <>
-            <h1>SignIn page</h1>
-            {/* <button type="submit" onClick={this.signIn}>Sign In</button> */}
+            <h1>Sign in page</h1>
+            <button type="submit" onClick={() => signIn()}>Sign In</button>
+            <button type="submit" onClick={() => checkUser()}>Check user</button>
         </>
     );
 }
