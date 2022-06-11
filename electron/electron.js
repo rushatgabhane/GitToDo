@@ -1,6 +1,7 @@
 
 const {
     app, BrowserWindow, ipcMain, Tray,
+    globalShortcut,
 } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
@@ -22,6 +23,7 @@ function createWindow() {
         fullscreenable: false,
         transparent: false,
         webPreferences: {
+            // Prevents renderer process code from not running when window is
             backgroundThrottling: false,
         },
     });
@@ -50,9 +52,17 @@ function toggleWindow() {
 
 function createTray() {
     tray = new Tray(path.join(__dirname, '../public/images/ghostTemplate.png'));
+    tray.on('right-click', toggleWindow)
+    tray.on('double-click', toggleWindow)
     tray.on('click', (event) => {
         toggleWindow();
+
+        // Show devtools when command clicked
+        if (window.isVisible() && process.defaultApp && event.metaKey) {
+            window.openDevTools({mode: 'detach'});
+        }
     });
+    tray.setToolTip('GitWatch');
 }
 
 function getWindowPosition() {
@@ -77,9 +87,14 @@ function showWindow() {
 app.on('ready', () => {
     createTray();
     createWindow();
+
+    globalShortcut.register('CommandOrControl+L', () => {
+        toggleWindow(); 
+    });    
 });
 
 app.on('window-all-closed', () => {
+    globalShortcut.unregisterAll();
     if (process.platform === 'darwin') {
         return;
     }

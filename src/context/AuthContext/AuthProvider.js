@@ -55,6 +55,9 @@ class AuthProvider extends React.Component {
             this.setState({
                 user: null,
             });
+
+            // Clear localStorage for security
+            localStorage.clear();
         });
     }
 
