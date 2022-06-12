@@ -6,4 +6,4 @@ export {
     signOut,
     getNotifications,
     getOctokit,
-}
+};

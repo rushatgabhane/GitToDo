@@ -1,6 +1,6 @@
-import supabase from '../supabase';
 import {Octokit} from 'octokit';
 import _ from 'lodash';
+import supabase from '../supabase';
 
 async function signIn() {
     const {error} = await supabase.auth.signIn({
@@ -18,17 +18,19 @@ async function signOut() {
     if (error) {
         console.error(error);
     }
+
     // Clear localStorage for security
     // ToDo - probably don't delete tasklist
     // localStorage.clear();
 }
 
-function getOctokit(){
+function getOctokit() {
     const supabaseData = JSON.parse(localStorage.getItem('supabase.auth.token'));
     const githubAccessToken = _.get(supabaseData, 'currentSession.provider_token');
 
-    if(_.isUndefined(githubAccessToken)) {
-        console.log('[getOctokit]: github access token undefined');
+    if (_.isUndefined(githubAccessToken)) {
+        signOut();
+        console.error('[getOctokit]: github access token undefined. Signing out!');
         return;
     }
     return new Octokit({

@@ -1,7 +1,6 @@
 import React from 'react';
 import CardList from '../components/CardList';
 import supabase from '../libs/supabase';
-import {getOctokit} from '../libs/Github';
 import {AuthContext} from '../context/AuthContext';
 
 const checkUser = () => {

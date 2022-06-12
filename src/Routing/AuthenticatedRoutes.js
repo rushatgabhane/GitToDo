@@ -4,7 +4,7 @@ import {
     Routes,
     Route,
 } from 'react-router-dom';
-import {isNetworkOnline} from '../libs/NetworkStatus';
+import isNetworkOnline from '../libs/NetworkStatus';
 import TasksPage from '../pages/TasksPage';
 import SettingsPage from '../pages/SettingsPage';
 import {getNotifications} from '../libs/Github';
@@ -12,16 +12,14 @@ import {getNotifications} from '../libs/Github';
 class AuthenticatedRoutes extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     componentDidMount() {
         this.interval = setInterval(() => {
             if (!isNetworkOnline()) {
-                console.log('[Authentidated Routes]: Network offline');
                 return;
             }
-            console.log('interval')
+            console.log('interval');
             getNotifications();
         }, 5000);
     }
@@ -31,7 +29,7 @@ class AuthenticatedRoutes extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<TasksPage />} />

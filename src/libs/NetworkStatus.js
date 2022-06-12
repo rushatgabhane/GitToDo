@@ -2,6 +2,4 @@ function isNetworkOnline() {
     return navigator.onLine;
 }
 
-export {
-    isNetworkOnline
-};
+export default isNetworkOnline;
