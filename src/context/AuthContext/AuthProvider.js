@@ -26,7 +26,7 @@ class AuthProvider extends React.Component {
     }
 
     componentDidMount() {
-        // This is a workaround because returns null after a sign in
+        // This is a workaround because null is returned after a sign in
         // https://github.com/supabase/gotrue/issues/173
         supabase.auth.onAuthStateChange((event, session) => {
             const user = _.get(session, 'user', null);
@@ -54,9 +54,6 @@ class AuthProvider extends React.Component {
                     user: null,
                     currentSession: null,
                 });
-
-                // Clear localStorage for security
-                localStorage.clear();
             });
     }
 

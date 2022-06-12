@@ -17,7 +17,7 @@ function createWindow() {
         width: 400,
         titleBarStyle: 'hidden',
         frame: false,
-        resizable: false,
+        resizable: isDev ? true : false,
         show: false,
         transparent: false,
         webPreferences: {

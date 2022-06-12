@@ -1,27 +1,38 @@
+import React from 'react';
 import CardList from '../components/CardList';
-import * as Github from '../libs/Github';
 import supabase from '../libs/supabase';
-import {useAuthContext} from '../context/AuthContext';
+import {getOctokit} from '../libs/Github';
+import {AuthContext} from '../context/AuthContext';
 
 const checkUser = () => {
     console.info(supabase.auth.user());
 };
 
-const TasksPage = () => {
-    const {signOut, currentSession} = useAuthContext();
-    console.log('Current session: ', currentSession);
-    return (
-        <>
-            <h1>Hello world!</h1>
-            <CardList
-                title="Todo"
+class TasksPage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-                // tasks={this.state.tasks}
-            />
-            <button type="submit" onClick={() => signOut()}>Sign Out</button>
-            <button type="submit" onClick={() => checkUser()}>Check user</button>
-        </>
-    );
-};
+    componentDidMount() {
+        // subscribe to notifications
+    }
+
+    render() {
+        return (
+            <>
+                <h1>Hello world!</h1>
+                <CardList
+                    title="Todo"
+
+                    // tasks={this.state.tasks}
+                />
+                <button type="submit" onClick={() => this.context.signOut()}>Sign Out</button>
+                <button type="submit" onClick={() => checkUser()}>Check user</button>
+            </>
+        );
+    }
+}
+
+TasksPage.contextType = AuthContext;
 
 export default TasksPage;
