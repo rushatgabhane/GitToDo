@@ -1,7 +1,7 @@
 import React from 'react';
 import {AuthContext} from './context/AuthContext';
 import SignInPage from './pages/SignInPage';
-import AuthenticatedRoutes from './Routing/AuthenticatedRoutes';
+import AuthenticatedRoutes from './routing/AuthenticatedRoutes';
 
 class App extends React.Component {
     constructor(props) {

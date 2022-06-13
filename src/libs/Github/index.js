@@ -1,9 +1,9 @@
 import {signIn, signOut, getOctokit} from './authentication';
-import {getNotifications} from './notifications';
+import {checkNotifications} from './notifications';
 
 export {
     signIn,
     signOut,
-    getNotifications,
+    checkNotifications,
     getOctokit,
 };

@@ -29,8 +29,8 @@ function getOctokit() {
     const githubAccessToken = _.get(supabaseData, 'currentSession.provider_token');
 
     if (_.isUndefined(githubAccessToken)) {
-        signOut();
-        console.error('[getOctokit]: github access token undefined. Signing out!');
+        // signOut();
+        console.error('[getOctokit]: github access token undefined.');
         return;
     }
     return new Octokit({

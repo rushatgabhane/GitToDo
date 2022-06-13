@@ -7,7 +7,7 @@ import {
 import isNetworkOnline from '../libs/NetworkStatus';
 import TasksPage from '../pages/TasksPage';
 import SettingsPage from '../pages/SettingsPage';
-import {getNotifications} from '../libs/Github';
+import {checkNotifications} from '../libs/Github';
 
 class AuthenticatedRoutes extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class AuthenticatedRoutes extends React.Component {
                 return;
             }
             console.log('interval');
-            getNotifications();
+            checkNotifications();
         }, 5000);
     }
 
