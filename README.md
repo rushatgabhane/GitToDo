@@ -1,4 +1,4 @@
-# GitWatch
+# GitToDo
 We organize your git notifications so you don't have to.
 ## Install dependencies
 `npm install`
