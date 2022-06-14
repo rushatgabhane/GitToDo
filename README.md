@@ -8,3 +8,6 @@ ToDo list for your GitHub notifications. Available on MacOS.
 
 ## Build for production
 `npm run build`
+
+## Contributing
+Create an issue or PR to get started
