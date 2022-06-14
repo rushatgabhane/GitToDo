@@ -1,4 +1,9 @@
 const CONST = {
+    LOCAL_STORAGE: {
+        CHECKED_NOTIFICATION_SINCE: 'checkedNotificationSince',
+        NOTIFICATIONS: 'notifications',
+        SUPABSE: 'supabase.auth.token',
+    },
     WINDOW_HEIGHT: 600,
     WINDOW_WIDTH: 400,
     SUPABASE_URL: 'https://yitbtnrvtvqsevxgddsg.supabase.co',

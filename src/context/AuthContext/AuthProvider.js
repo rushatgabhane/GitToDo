@@ -4,6 +4,7 @@ import _ from 'lodash';
 import AuthContext from './AuthContext';
 import supabase from '../../libs/supabase';
 import * as Github from '../../libs/Github';
+import CONST from '../../CONST';
 
 const propTypes = {
     children: PropTypes.node,
@@ -32,7 +33,7 @@ class AuthProvider extends React.Component {
             const user = _.get(session, 'user', null);
             this.setState({
                 user,
-                currentSession: localStorage.getItem('supabase.auth.token'),
+                currentSession: localStorage.getItem(CONST.LOCAL_STORAGE.SUPABSE),
             });
         });
     }
@@ -42,7 +43,7 @@ class AuthProvider extends React.Component {
             .then(() => {
                 this.setState({
                     user: supabase.auth.user(),
-                    currentSession: localStorage.getItem('supabase.auth.token'),
+                    currentSession: localStorage.getItem(CONST.LOCAL_STORAGE.SUPABSE),
                 });
             });
     }

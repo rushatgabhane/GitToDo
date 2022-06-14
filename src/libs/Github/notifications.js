@@ -1,7 +1,10 @@
-import {getOctokit} from './authentication';
 import _ from 'lodash';
+import {getOctokit} from './authentication';
+import * as NotificationObservable from '../NotificationObservable';
+import * as LocalStorageUtils from '../../utils/localStorage';
+import CONST from '../../CONST';
 
-let checkedNotificationSince = localStorage.getItem('checkedNotificationSince') || new Date().toUTCString();
+let checkedNotificationSince = localStorage.getItem(CONST.LOCAL_STORAGE.CHECKED_NOTIFICATION_SINCE) || new Date().toUTCString();
 
 /*
 * Notifications come back as "threads". 
@@ -12,10 +15,10 @@ function processNotification(notifications) {
     console.log('[NOTIFICATIONS]: Response: ', notifications);
 
     _.forEach(notifications, notification => {
-        const applyStrategy = getStrategy[notification.subject.type] || function(){};
         console.log('notification subject type', notification.subject.type);
-        console.log('strategy to apply' , applyStrategy);
-        applyStrategy(notification);
+        
+        const applyNotificationStrategy = getNotificationStrategy[notification.subject.type] || function(){};
+        applyNotificationStrategy(notification);
     });
 }
 
@@ -32,7 +35,7 @@ function checkNotifications() {
             return;
         }
         checkedNotificationSince = new Date().toUTCString();
-        localStorage.setItem('checkedNotificationSince', checkedNotificationSince);
+        localStorage.setItem(CONST.LOCAL_STORAGE.CHECKED_NOTIFICATION_SINCE, checkedNotificationSince);
         processNotification(response.data);
     })
     .catch(err => {
@@ -41,30 +44,45 @@ function checkNotifications() {
 }
 
 function processIssue(notification) {
-    console.log('Processing issue: notification: ', notification);
+    
     const latestCommentURL = notification.subject.latest_comment_url.replace('https://api.github.com', '');
     getOctokit().request({
         method: 'GET',
         url: latestCommentURL,
     })
-    .then(response => {
-        if (response.status != 200) {
+    .then(commentResponse => {
+        if (commentResponse.status != 200) {
             return;
         }
-        console.log('Response Body: ', response.data.body);
+        
+        const details = {
+            active: false,
+            body: commentResponse.data.body,
+            actor: {
+                avatar_url: commentResponse.data.user.avatar_url,
+                username: commentResponse.data.user.login,
+                id: commentResponse.data.user.id,
+            }
+        }
+        const notificationWithDetails = {...notification, ...details};
+        const newNotifications = LocalStorageUtils.findAndReplaceNotificationById(notificationWithDetails);
+        console.log('Processing issue: notification: ', notificationWithDetails);
+        NotificationObservable.notify(newNotifications);
     })
     .catch(err => console.error(err));
 }
 
 function processPullRequest() {
     console.log('process pill request');
+    // Three cases ?
+    // 1. 
 }
 
 function processCommit() {
     console.log('process commit');
 }
 
-const getStrategy = {
+const getNotificationStrategy = {
     'PullRequest': processPullRequest,
     'Issue': processIssue,
     'Commit': processCommit,

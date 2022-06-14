@@ -1,6 +1,7 @@
 import {Octokit} from 'octokit';
 import _ from 'lodash';
 import supabase from '../supabase';
+import CONST from '../../CONST';
 
 async function signIn() {
     const {error} = await supabase.auth.signIn({
@@ -25,11 +26,13 @@ async function signOut() {
 }
 
 function getOctokit() {
-    const supabaseData = JSON.parse(localStorage.getItem('supabase.auth.token'));
+    const supabaseData = JSON.parse(localStorage.getItem(CONST.LOCAL_STORAGE.SUPABSE));
     const githubAccessToken = _.get(supabaseData, 'currentSession.provider_token');
 
     if (_.isUndefined(githubAccessToken)) {
-        // signOut();
+        // Sign in is a workaround because supabase doesn't refresh expired github access_token
+        // https://github.com/rushatgabhane/GitWatch/issues/2
+        signIn();
         console.error('[getOctokit]: github access token undefined.');
         return;
     }
