@@ -1,5 +1,5 @@
 # GitToDo
-We organize your git notifications so you don't have to.
+ToDo list for your GitHub notifications. Available on MacOS.
 ## Install dependencies
 `npm install`
 
