@@ -2,6 +2,7 @@ import _ from 'lodash';
 import {getOctokit} from './authentication';
 import * as NotificationObservable from '../NotificationObservable';
 import * as LocalStorageUtils from '../../utils/localStorage';
+import * as Utils from '../../utils';
 import CONST from '../../CONST';
 
 let checkedNotificationSince = localStorage.getItem(CONST.LOCAL_STORAGE.CHECKED_NOTIFICATION_SINCE) || new Date().toUTCString();
@@ -12,8 +13,6 @@ let checkedNotificationSince = localStorage.getItem(CONST.LOCAL_STORAGE.CHECKED_
 * https://docs.github.com/en/rest/activity/notifications#about-the-notifications-api
 */
 function processNotification(notifications) {
-    console.log('[NOTIFICATIONS]: Response: ', notifications);
-
     _.forEach(notifications, (notification) => {
         console.log('notification subject type', notification.subject.type);
 
@@ -43,19 +42,42 @@ function checkNotifications() {
         });
 }
 
-function processIssue(notification) {
-    const latestCommentURL = notification.subject.latest_comment_url.replace('https://api.github.com', '');
-    getOctokit().request({
+async function processIssue(notification) {
+    const commentDetails = await getCommentDetails(Utils.stripGithubFromURL(notification.subject.latest_comment_url));
+    const notificationWithDetails = {
+        is_done: false,
+        ...notification,
+        ...commentDetails,
+    };
+    const updatedNotifications = LocalStorageUtils.findAndReplaceNotificationById(notificationWithDetails);
+    NotificationObservable.notify(updatedNotifications);
+}
+
+async function processPullRequest(notification) {
+    const [commentDetails, pullRequestDetails] = await Promise.all([
+        getCommentDetails(Utils.stripGithubFromURL(notification.subject.latest_comment_url)),
+        getPullRequestDetails(Utils.stripGithubFromURL(notification.subject.url)),
+    ]) 
+    const notificationWithDetails = {
+        is_done: false,
+        ...notification,
+        ...commentDetails,
+        ...pullRequestDetails,
+    };
+    const updatedNotifications = LocalStorageUtils.findAndReplaceNotificationById(notificationWithDetails);
+    NotificationObservable.notify(updatedNotifications);
+}
+
+async function getCommentDetails(commentURL) {
+    return getOctokit().request({
         method: 'GET',
-        url: latestCommentURL,
+        url: commentURL,
     })
-        .then((commentResponse) => {
+        .then(commentResponse => {
             if (commentResponse.status != 200) {
                 return;
             }
-
-            const details = {
-                active: false,
+            return {
                 body: commentResponse.data.body,
                 actor: {
                     avatar_url: commentResponse.data.user.avatar_url,
@@ -63,19 +85,26 @@ function processIssue(notification) {
                     id: commentResponse.data.user.id,
                 },
             };
-            const notificationWithDetails = {...notification, ...details};
-            const newNotifications = LocalStorageUtils.findAndReplaceNotificationById(notificationWithDetails);
-            console.log('Processing issue: notification: ', notificationWithDetails);
-            NotificationObservable.notify(newNotifications);
         })
         .catch(err => console.error(err));
 }
 
-function processPullRequest() {
-    console.log('process pill request');
+async function getPullRequestDetails(pullRequestURL) {
+    return getOctokit().request({
+        method: 'GET',
+        url: pullRequestURL,
+    })
+        .then(pullRequestResponse => {
+            if (pullRequestResponse.status != 200) {
+                return;
+            }
 
-    // Three cases ?
-    // 1.
+            return {
+                draft: pullRequestResponse.data.draft,
+                state: pullRequestResponse.data.state,
+            };
+        })
+        .catch(err => console.error(err));
 }
 
 function processCommit() {
