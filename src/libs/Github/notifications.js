@@ -14,8 +14,6 @@ let checkedNotificationSince = localStorage.getItem(CONST.LOCAL_STORAGE.CHECKED_
 */
 function processNotification(notifications) {
     _.forEach(notifications, (notification) => {
-        console.log('notification subject type', notification.subject.type);
-
         const applyNotificationStrategy = getNotificationStrategy[notification.subject.type] || function () {};
         applyNotificationStrategy(notification);
     });
@@ -43,32 +41,39 @@ function checkNotifications() {
 }
 
 async function processIssue(notification) {
-    const commentDetails = await getCommentDetails(Utils.stripGithubFromURL(notification.subject.latest_comment_url));
+    const latestCommentDetails = await getLatestComment(Utils.stripGithubFromURL(notification.subject.latest_comment_url));
     const notificationWithDetails = {
         is_done: false,
         ...notification,
-        ...commentDetails,
+        ...latestCommentDetails,
     };
     const updatedNotifications = LocalStorageUtils.findAndReplaceNotificationById(notificationWithDetails);
     NotificationObservable.notify(updatedNotifications);
 }
 
 async function processPullRequest(notification) {
-    const [commentDetails, pullRequestDetails] = await Promise.all([
-        getCommentDetails(Utils.stripGithubFromURL(notification.subject.latest_comment_url)),
+    const [latestCommentDetails, pullRequestDetails, reviewDetails, commentDetails] = await Promise.all([
+        getLatestComment(Utils.stripGithubFromURL(notification.subject.latest_comment_url)),
         getPullRequestDetails(Utils.stripGithubFromURL(notification.subject.url)),
-    ]) 
+        getReviews(Utils.stripGithubFromURL(notification.subject.url)),
+        getComments(Utils.stripGithubFromURL(notification.subject.url)),
+    ]);
+    const bodyAndActor = Utils.getValidBodyAndActor(latestCommentDetails, reviewDetails, commentDetails)
     const notificationWithDetails = {
         is_done: false,
         ...notification,
-        ...commentDetails,
         ...pullRequestDetails,
+        ...bodyAndActor,
     };
     const updatedNotifications = LocalStorageUtils.findAndReplaceNotificationById(notificationWithDetails);
     NotificationObservable.notify(updatedNotifications);
 }
 
-async function getCommentDetails(commentURL) {
+async function getLatestComment(commentURL) {
+    if (!commentURL) {
+        return;
+    }
+
     return getOctokit().request({
         method: 'GET',
         url: commentURL,
@@ -90,6 +95,10 @@ async function getCommentDetails(commentURL) {
 }
 
 async function getPullRequestDetails(pullRequestURL) {
+    if (!pullRequestURL) {
+        return;
+    }
+
     return getOctokit().request({
         method: 'GET',
         url: pullRequestURL,
@@ -100,8 +109,71 @@ async function getPullRequestDetails(pullRequestURL) {
             }
 
             return {
+                // new PR has a body
                 draft: pullRequestResponse.data.draft,
                 state: pullRequestResponse.data.state,
+            };
+        })
+        .catch(err => console.error(err));
+}
+
+async function getReviews(pullRequestURL) {
+    if (!pullRequestURL) {
+        return;
+    }
+
+    return getOctokit().request({
+        method: 'GET',
+        url: `${pullRequestURL}/reviews`,
+    })
+        .then(reviewResponse => {
+            if (reviewResponse.status != 200) {
+                return;
+            }
+
+            const latestReview = _.last(reviewResponse.data);
+            if (!latestReview) {
+                return;
+            }
+
+            return {
+                body: latestReview.body,
+                actor: {
+                    avatar_url: latestReview.user.avatar_url,
+                    username: latestReview.user.login,
+                    id: latestReview.user.id,
+                },
+            };
+        })
+        .catch(err => console.error(err));
+}
+
+async function getComments(issueURL) {
+    if (!issueURL) {
+        return;
+    }
+
+    return getOctokit().request({
+        method: 'GET',
+        url: `${issueURL}/comments`,
+    })
+        .then(commentsResponse => {
+            if (commentsResponse.status != 200) {
+                return;
+            }
+
+            const latestComment = _.last(commentsResponse.data);
+            if (!latestComment) {
+                return;
+            }
+
+            return {
+                body: latestComment.body,
+                actor: {
+                    avatar_url: latestComment.user.avatar_url,
+                    username: latestComment.user.login,
+                    id: latestComment.user.id,
+                },
             };
         })
         .catch(err => console.error(err));
