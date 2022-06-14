@@ -16,7 +16,7 @@ export default function (WrappedComponent) {
         constructor(props) {
             super(props);
 
-            const notifications = JSON.parse(localStorage.getItem(CONST.LOCAL_STORAGE.NOTIFICATIONS));
+            const notifications = JSON.parse(localStorage.getItem(CONST.LOCAL_STORAGE.NOTIFICATIONS)) || [];
             this.state = {
                 notifications,
             };
