@@ -31,4 +31,4 @@ export {
     getValidBodyAndActor,
     stripGithubFromURL,
     to,
-}
+};

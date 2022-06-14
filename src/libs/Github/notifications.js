@@ -58,7 +58,7 @@ async function processPullRequest(notification) {
         getReviews(Utils.stripGithubFromURL(notification.subject.url)),
         getComments(Utils.stripGithubFromURL(notification.subject.url)),
     ]);
-    const bodyAndActor = Utils.getValidBodyAndActor(latestCommentDetails, reviewDetails, commentDetails)
+    const bodyAndActor = Utils.getValidBodyAndActor(latestCommentDetails, reviewDetails, commentDetails);
     const notificationWithDetails = {
         is_done: false,
         ...notification,
@@ -78,7 +78,7 @@ async function getLatestComment(commentURL) {
         method: 'GET',
         url: commentURL,
     })
-        .then(commentResponse => {
+        .then((commentResponse) => {
             if (commentResponse.status != 200) {
                 return;
             }
@@ -103,7 +103,7 @@ async function getPullRequestDetails(pullRequestURL) {
         method: 'GET',
         url: pullRequestURL,
     })
-        .then(pullRequestResponse => {
+        .then((pullRequestResponse) => {
             if (pullRequestResponse.status != 200) {
                 return;
             }
@@ -126,7 +126,7 @@ async function getReviews(pullRequestURL) {
         method: 'GET',
         url: `${pullRequestURL}/reviews`,
     })
-        .then(reviewResponse => {
+        .then((reviewResponse) => {
             if (reviewResponse.status != 200) {
                 return;
             }
@@ -157,7 +157,7 @@ async function getComments(issueURL) {
         method: 'GET',
         url: `${issueURL}/comments`,
     })
-        .then(commentsResponse => {
+        .then((commentsResponse) => {
             if (commentsResponse.status != 200) {
                 return;
             }

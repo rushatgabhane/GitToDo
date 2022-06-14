@@ -1,9 +1,9 @@
 import React from 'react';
+import _ from 'lodash';
 import CardList from '../components/CardList';
 import supabase from '../libs/supabase';
 import {AuthContext} from '../context/AuthContext';
 import withNotifications, {withNotificationsPropTypes, withNotificationsDefaultProps} from '../components/withNotifications';
-import _ from 'lodash';
 
 const checkUser = () => {
     console.info(supabase.auth.user());
