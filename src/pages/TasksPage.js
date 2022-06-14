@@ -10,11 +10,11 @@ const checkUser = () => {
 
 const propTypes = {
     ...withNotificationsPropTypes,
-}
+};
 
 const defaultProps = {
     ...withNotificationsDefaultProps,
-}
+};
 
 class TasksPage extends React.Component {
     constructor(props) {
@@ -34,6 +34,7 @@ class TasksPage extends React.Component {
                 <h1>Hello world!</h1>
                 <CardList
                     title="Todo"
+
                     // tasks={this.state.tasks}
                 />
                 <button type="submit" onClick={() => this.context.signOut()}>Sign Out</button>

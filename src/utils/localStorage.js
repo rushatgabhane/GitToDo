@@ -1,5 +1,5 @@
-import CONST from '../CONST';
 import _ from 'lodash';
+import CONST from '../CONST';
 
 // Get all notifications from local storage
 // Find in object by id, if it exists delete it.
@@ -12,8 +12,7 @@ function findAndReplaceNotificationById(newNotification) {
 
     const oldNotifications = JSON.parse(localStorage.getItem(CONST.LOCAL_STORAGE.NOTIFICATIONS));
     const withoutNewNotification = _.filter(oldNotifications,
-        notification => notification.id !== newNotification.id
-    );
+        notification => notification.id !== newNotification.id);
     const newNotifications = [
         ...withoutNewNotification,
         newNotification,
@@ -24,4 +23,4 @@ function findAndReplaceNotificationById(newNotification) {
 
 export {
     findAndReplaceNotificationById,
-}
+};

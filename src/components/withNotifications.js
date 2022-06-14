@@ -9,7 +9,7 @@ const withNotificationsPropTypes = {
 
 const withNotificationsDefaultProps = {
     notifications: [],
-}
+};
 
 export default function (WrappedComponent) {
     class WithNotifications extends React.Component {
@@ -20,7 +20,7 @@ export default function (WrappedComponent) {
             this.state = {
                 notifications,
             };
-            
+
             this.setNotifications = this.setNotifications.bind(this);
         }
 
@@ -50,7 +50,7 @@ export default function (WrappedComponent) {
         }
     }
 
-    WithNotifications.displayName = `WithNotificationsWrappedComponent`;
+    WithNotifications.displayName = 'WithNotificationsWrappedComponent';
     WithNotifications.propTypes = {
         forwardedRef: PropTypes.oneOfType([
             PropTypes.func,
