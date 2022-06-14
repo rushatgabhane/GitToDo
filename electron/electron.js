@@ -62,7 +62,7 @@ function createTray() {
             window.openDevTools({mode: 'detach'});
         }
     });
-    tray.setToolTip('GitWatch');
+    tray.setToolTip('GitTodo');
 }
 
 function getWindowPosition() {

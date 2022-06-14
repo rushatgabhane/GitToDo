@@ -1,5 +1,5 @@
 {
-  "name": "gitwatch",
+  "name": "gittodo",
   "version": "1.0.0",
   "description": "GitHub Notification Manager",
   "main": "electron/electron.js",
@@ -19,11 +19,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GitNotifier/GitWatch.git"
+    "url": "git+https://github.com/GitNotifier/GitToDo.git"
   },
   "author": "Rushat Gabhane",
   "bugs": {
-    "url": "https://github.com/GitNotifier/GitWatch/issues"
+    "url": "https://github.com/GitNotifier/GitToDo/issues"
   },
   "homepage": "./",
   "license": "MIT",
@@ -61,7 +61,7 @@
     "wait-on": "^6.0.1"
   },
   "build": {
-    "appId": "com.gitwatch",
+    "appId": "com.gittodo",
     "files": [
       "electron/electron.js",
       "public/images/*",

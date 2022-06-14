@@ -42,7 +42,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: 0.0.1
-        files: '.\dist\gitwatch Setup 1.0.0.exe'
+        files: '.\dist\gittodo Setup 1.0.0.exe'
   build_on_ubuntu:
     runs-on: ubuntu-latest
     steps:
@@ -62,4 +62,4 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: 0.0.1
-        files: ./dist/gitwatch_1.0.0_amd64.deb
+        files: ./dist/gittodo_1.0.0_amd64.deb

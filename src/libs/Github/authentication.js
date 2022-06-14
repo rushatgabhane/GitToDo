@@ -31,7 +31,7 @@ function getOctokit() {
 
     if (_.isUndefined(githubAccessToken)) {
         // Sign in is a workaround because supabase doesn't refresh expired github access_token
-        // https://github.com/rushatgabhane/GitWatch/issues/2
+        // https://github.com/rushatgabhane/GitToDo/issues/2
         signIn();
         console.error('[getOctokit]: github access token undefined.');
         return;
