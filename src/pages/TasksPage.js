@@ -33,7 +33,7 @@ class TasksPage extends React.Component {
         console.log('TasksPage: ', this.props.notifications);
         return (
             <>
-                <h1>Hello world!</h1>
+                <h1 className="text-3xl font-bold underline">Hello world!</h1>
                 <CardList
                     todo={this.state.toDo}
                     done={this.state.done}
