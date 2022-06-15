@@ -9,7 +9,7 @@ Streamline your workflow with ToDo list for your GitHub notifications. Available
 * Notifications are sorted by modified time 🕓
 * GitHub API is polled every 5 seconds for new notifications, and app is updated with **minimum re-renders**
 * GitHub OAuth
-* Keyboard navigation and shortcut ⌨️
+* Keyboard navigation and shortcuts ⌨️
 
 ## Demo
 
