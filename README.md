@@ -1,6 +1,7 @@
 # GitToDo
+
+Streamline your workflow, stay on top of issues and pull requests. <br />
 ToDo list for your GitHub notifications. Available on MacOS.
-Streamline your workflow, stay on top of issues and pull requests.
 
 ## Features
 * Menu bar app 
