@@ -16,8 +16,8 @@ module.exports = {
                 white: '#fcfcfc',
             },
             fontFamily: {
-                'sans': ['Archivo', 'Helvetica', 'sans-serif'],
-            }
+                sans: ['Archivo', 'Helvetica', 'sans-serif'],
+            },
         },
     },
     plugins: [],
