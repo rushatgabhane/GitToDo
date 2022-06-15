@@ -25,20 +25,8 @@ const CardList = (props) => {
     return (
         <>
             <Accordion.Root type="single" collapsible className="w-full" style={{backgroundColor: 'pink'}}>
-                <Accordion.Item value="item-1">
-                    <Accordion.Trigger>This is the trigger</Accordion.Trigger>
-                    <Accordion.Content>Content here</Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="item-2">
-                    <Accordion.Trigger>This is the trigger</Accordion.Trigger>
-                    <Accordion.Content>Content here</Accordion.Content>
-                </Accordion.Item>
-                {
-                    _.map(toDoCards, card => card)
-                }
-                {
-                    _.map(doneCards, card => card)
-                }
+                {getCards(props.toDo)}
+                {getCards(props.done)}
             </Accordion.Root>
         </>
     );
