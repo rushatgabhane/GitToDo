@@ -6,6 +6,8 @@ ToDo list for your GitHub notifications. Available on MacOS.
 ## Features
 * Menu bar app 
 * Read, unread or open in browser 
+
+
 * Preview and dismiss notifications that don't require your action
 * You control the data - all notifications are stored locally only 🔐 
 * Notifications are sorted by modified time 🕓
@@ -15,7 +17,7 @@ ToDo list for your GitHub notifications. Available on MacOS.
 
 ## Demo
 
-
+https://user-images.githubusercontent.com/29673073/173961439-a4a0c6fb-d949-46fe-9961-6091a4d03aaa.mov
 
 ## Install dependencies
 `npm install`
