@@ -72,12 +72,12 @@ class TasksPage extends React.Component {
         const done = this.getDone();
         return (
             <>
-                <h1 className="text-2xl p-3 font-bold">GitToDo</h1>
-                <Accordion.Root type="single" collapsible>
+                <h1 className="text-2xl p-3 font-bold bg-pink opacity-90">GitToDo</h1>
+                <Accordion.Root className="bg-black" type="single" collapsible>
                     {this.getCards(toDo)}
-                    <div className="flex justify-between">
-                        <h1 className="text-2xl p-3 font-bold">Done</h1>
-                        <button className="p-3 hover:bg-darkGrey" onClick={() => this.deleteAllDone()}>Delete all done</button>
+                    <div className="flex justify-between bg-green opacity-90">
+                        <h1 className="text-2xl p-3 font-bold">🎉 Done 🎉</h1>
+                        <button className="p-3 hover:bg-orange" onClick={() => this.deleteAllDone()}>Delete all done</button>
                     </div>
                     {this.getCards(done)}
                 </Accordion.Root>

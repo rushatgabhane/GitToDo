@@ -20,6 +20,7 @@ function createWindow() {
         resizable: true,
         show: false,
         transparent: false,
+        transparent: true,
         webPreferences: {
             // Prevents renderer process code from not running when window is
             backgroundThrottling: false,
@@ -29,7 +30,7 @@ function createWindow() {
     window.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     window.setAlwaysOnTop(true, 'floating', 1);
 
-    window.setBackgroundColor('#292a30');
+    // window.setBackgroundColor('#292a30');
     window.loadURL(
         isDev
             ? 'http://localhost:3000'

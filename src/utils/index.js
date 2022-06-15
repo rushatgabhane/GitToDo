@@ -8,12 +8,17 @@ function stripGithubFromURL(URL) {
     return URL.replace('https://api.github.com', '');
 }
 
-function apiURLToGithubURL(URL) {
+function apiURLToGithubURL(URL, type) {
     if (!URL) {
         return;
     }
 
-    return `https://github.com/${URL.replace('https://api.github.com/repos/', '')}`;
+    const withoutApi = `https://github.com/${URL.replace('https://api.github.com/repos/', '')}`;
+    if (type === CONST.NOTIFICATION_TYPE.ISSUE) {
+        return withoutApi;
+    }
+
+    return withoutApi.replace('/pulls/', '/pull/');   
 }
 
 function to(promise) {

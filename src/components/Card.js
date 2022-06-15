@@ -13,7 +13,11 @@ const Card = (props) => {
     }
 
     function openInTab(e) {
-        // props.toggleDone(props.notification.id);
+        if (props.notification.is_done) {
+            return;
+        }
+
+        props.toggleDone(props.notification.id);
     }
 
     function getIssueOrPrIcon() {
@@ -47,7 +51,7 @@ const Card = (props) => {
                                 <h3 className="truncate text-xs">{`in ${props.notification.repository.name}`}</h3>
                             </div>
                             <div>
-                                <a href={Utils.apiURLToGithubURL(props.notification.subject.url)} onClick={openInTab} target="_blank" rel="noreferrer">
+                                <a href={Utils.apiURLToGithubURL(props.notification.subject.url, props.notification.subject.type)} onClick={openInTab} target="_blank" rel="noreferrer">
                                     <button className="px-1 right-0 hover:bg-darkGrey text-xs text-blue">Open</button>
                                 </a>
                                 <button className="px-1 hover:bg-darkGrey text-xs text-blue" onClick={toggleDone}>
