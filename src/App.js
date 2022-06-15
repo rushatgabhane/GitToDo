@@ -4,10 +4,6 @@ import SignInPage from './pages/SignInPage';
 import AuthenticatedRoutes from './routing/AuthenticatedRoutes';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             this.context.user ? <AuthenticatedRoutes /> : <SignInPage />

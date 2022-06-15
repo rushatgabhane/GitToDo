@@ -110,7 +110,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-    if (window != null) {
+    if (window !== null) {
         return;
     }
     createWindow();

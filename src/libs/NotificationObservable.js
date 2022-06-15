@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 let observers = [];
 
 function subscribe(func) {
@@ -5,11 +7,11 @@ function subscribe(func) {
 }
 
 function unsubscribe(func) {
-    observers = observers.filter(observer => observer !== func);
+    observers = _.filter(observers, observer => observer !== func);
 }
 
 function notify(data) {
-    observers.forEach(observer => observer(data));
+    _.forEach(observers, observer => observer(data));
 }
 
 export {

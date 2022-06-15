@@ -28,7 +28,7 @@ function checkNotifications() {
         participating: false,
     })
         .then((response) => {
-            if (response.status != 200) {
+            if (response.status !== 200) {
                 return;
             }
             checkedNotificationSince = new Date().toUTCString();
@@ -79,7 +79,7 @@ async function getLatestComment(commentURL) {
         url: commentURL,
     })
         .then((commentResponse) => {
-            if (commentResponse.status != 200) {
+            if (commentResponse.status !== 200) {
                 return;
             }
             return {
@@ -104,7 +104,7 @@ async function getPullRequestDetails(pullRequestURL) {
         url: pullRequestURL,
     })
         .then((pullRequestResponse) => {
-            if (pullRequestResponse.status != 200) {
+            if (pullRequestResponse.status !== 200) {
                 return;
             }
 
@@ -127,7 +127,7 @@ async function getReviews(pullRequestURL) {
         url: `${pullRequestURL}/reviews`,
     })
         .then((reviewResponse) => {
-            if (reviewResponse.status != 200) {
+            if (reviewResponse.status !== 200) {
                 return;
             }
 
@@ -158,7 +158,7 @@ async function getComments(issueURL) {
         url: `${issueURL}/comments`,
     })
         .then((commentsResponse) => {
-            if (commentsResponse.status != 200) {
+            if (commentsResponse.status !== 200) {
                 return;
             }
 

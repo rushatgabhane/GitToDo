@@ -10,10 +10,6 @@ import SettingsPage from '../pages/SettingsPage';
 import {checkNotifications} from '../libs/Github';
 
 class AuthenticatedRoutes extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.interval = setInterval(() => {
             if (!isNetworkOnline()) {
