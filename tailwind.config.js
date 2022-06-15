@@ -7,9 +7,10 @@ module.exports = {
         extend: {
             colors: {
                 black: '#292a30',
+                darkGrey: '#41434B',
                 blue: '#00a2ff',
                 purple: '#e366d6',
-                pink: '##ff6fb3',
+                pink: '#ff6fb3',
                 orange: '#ff5d54',
                 yellow: '#ffc18f',
                 green: '#6dc9ba',
@@ -17,6 +18,9 @@ module.exports = {
             },
             fontFamily: {
                 sans: ['Archivo', 'Helvetica', 'sans-serif'],
+            },
+            spacing: {
+                17: '86px',
             },
         },
     },

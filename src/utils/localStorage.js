@@ -21,6 +21,19 @@ function findAndReplaceNotificationById(newNotification) {
     return newNotifications;
 }
 
+function findAndDeleteNotificationById(notificationToDelete) {
+    if (!notificationToDelete || !notificationToDelete.id) {
+        return;
+    }
+
+    const allNotifications = JSON.parse(localStorage.getItem(CONST.LOCAL_STORAGE.NOTIFICATIONS));
+    const withoutDeletedNotifications = _.filter(allNotifications,
+        notification => notification.id !== notificationToDelete.id);
+    localStorage.setItem(CONST.LOCAL_STORAGE.NOTIFICATIONS, JSON.stringify(withoutDeletedNotifications));
+    return withoutDeletedNotifications;
+}
+
 export {
     findAndReplaceNotificationById,
+    findAndDeleteNotificationById,
 };

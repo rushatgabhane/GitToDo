@@ -1,6 +1,6 @@
 
 const {
-    app, BrowserWindow, ipcMain, Tray, globalShortcut,
+    app, BrowserWindow, ipcMain, Tray, globalShortcut, shell,
 } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
@@ -17,7 +17,7 @@ function createWindow() {
         width: 400,
         titleBarStyle: 'hidden',
         frame: false,
-        resizable: !!isDev,
+        resizable: true,
         show: false,
         transparent: false,
         webPreferences: {
@@ -35,6 +35,12 @@ function createWindow() {
             ? 'http://localhost:3000'
             : `file://${path.join(__dirname, '../build/index.html')}`,
     );
+
+    window.webContents.on('new-window', (e, url) => {
+        console.log('new window, ', url);
+        e.preventDefault();
+        shell.openExternal(url);
+    });
 
     // Hide the window when it loses focus
     window.on('blur', () => {

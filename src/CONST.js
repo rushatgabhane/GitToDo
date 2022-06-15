@@ -4,6 +4,10 @@ const CONST = {
         NOTIFICATIONS: 'notifications',
         SUPABSE: 'supabase.auth.token',
     },
+    NOTIFICATION_TYPE: {
+        PULL_REQUEST: 'PullRequest',
+        ISSUE: 'Issue',
+    },
     WINDOW_HEIGHT: 600,
     WINDOW_WIDTH: 400,
     SUPABASE_URL: 'https://yitbtnrvtvqsevxgddsg.supabase.co',

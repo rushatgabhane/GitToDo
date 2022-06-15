@@ -1,13 +1,11 @@
 import React from 'react';
 import _ from 'lodash';
-import CardList from '../components/CardList';
-import supabase from '../libs/supabase';
+import * as Accordion from '@radix-ui/react-accordion';
+import * as LocalStorageUtils from '../utils/localStorage';
+import * as NotificationObservable from '../libs/NotificationObservable';
+import Card from '../components/Card';
 import {AuthContext} from '../context/AuthContext';
 import withNotifications, {withNotificationsPropTypes, withNotificationsDefaultProps} from '../components/withNotifications';
-
-const checkUser = () => {
-    console.info(supabase.auth.user());
-};
 
 const propTypes = {
     ...withNotificationsPropTypes,
@@ -23,6 +21,9 @@ class TasksPage extends React.Component {
 
         this.getToDo = this.getToDo.bind(this);
         this.getDone = this.getDone.bind(this);
+        this.getCards = this.getCards.bind(this);
+        this.toggleDone = this.toggleDone.bind(this);
+        this.deleteAllDone = this.deleteAllDone.bind(this);
     }
 
     getToDo() {
@@ -33,19 +34,53 @@ class TasksPage extends React.Component {
         return _.reject(this.props.notifications, notification => !notification.is_done);
     }
 
+    getCards(notifications) {
+        const sortedNotifications = _.orderBy(notifications, ['updated_at'], ['desc']);
+        return _.map(sortedNotifications, notification => (
+            <Card
+                key={`${notification.id}${notification.updated_at}`}
+                notification={notification}
+                toggleDone={this.toggleDone}
+            />
+        ));
+    }
+
+    deleteAllDone() {
+        const allDoneToDelete = _.filter(this.props.notifications, notification => notification.is_done);
+        _.each(allDoneToDelete, (notificationToDelete) => {
+            const updatedNotifications = LocalStorageUtils.findAndDeleteNotificationById(notificationToDelete);
+            NotificationObservable.notify(updatedNotifications);
+        });
+    }
+
+    toggleDone(notificationId) {
+        const notification = _.find(this.props.notifications, notification => notification.id == notificationId);
+        if (!notification) {
+            return;
+        }
+
+        const toggledNotification = {
+            ...notification,
+            is_done: !notification.is_done,
+        };
+        const updatedNotifications = LocalStorageUtils.findAndReplaceNotificationById(toggledNotification);
+        NotificationObservable.notify(updatedNotifications);
+    }
+
     render() {
-        console.log('TasksPage: ', this.props.notifications);
         const toDo = this.getToDo();
         const done = this.getDone();
         return (
             <>
-                <h1 className="text-3xl font-bold underline">Hello world!</h1>
-                <CardList
-                    toDo={toDo}
-                    done={done}
-                />
-                <button type="submit" onClick={() => this.context.signOut()}>Sign Out</button>
-                <button type="submit" onClick={() => checkUser()}>Check user</button>
+                <h1 className="text-2xl p-3 font-bold">GitToDo</h1>
+                <Accordion.Root type="single" collapsible>
+                    {this.getCards(toDo)}
+                    <div className="flex justify-between">
+                        <h1 className="text-2xl p-3 font-bold">Done</h1>
+                        <button className="p-3 hover:bg-darkGrey" onClick={() => this.deleteAllDone()}>Delete all done</button>
+                    </div>
+                    {this.getCards(done)}
+                </Accordion.Root>
             </>
         );
     }

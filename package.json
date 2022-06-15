@@ -36,11 +36,13 @@
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-markdown": "^8.0.3",
     "react-router-dom": "^6.3.0",
     "react-window": "^1.8.6"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.7",
     "babel-eslint": "^10.1.0",
     "concurrently": "^7.0.0",
@@ -58,6 +60,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "parcel": "^2.3.2",
     "parcel-plugin-static-files-copy": "^2.6.0",
+    "path-browserify": "^1.0.1",
     "postcss": "^8.4.14",
     "run-script-os": "^1.1.6",
     "tailwindcss": "^3.1.3",
