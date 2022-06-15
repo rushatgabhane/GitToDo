@@ -35,13 +35,18 @@ const Card = (props) => {
             value={`${props.notification.id}${props.notification.updated_at}`}
             className="px-3 py-3 border-y-2"
         >
-            <Accordion.Trigger
-                className="w-full h-17 text-left"
-            >
+            <Accordion.Trigger className="w-full h-17 text-left">
                 <div className="flex">
                     <div className="mr-1 pr-4">
-                        <img className="m-auto" src={getIssueOrPrIcon()} height={20} width={20} />
-                        <h3 className="text-xs mt-2 text-center">{`${Utils.getIssueOrPullRequestNumber(props.notification.subject.url, props.notification.subject.type)}`}</h3>
+                        <img
+                            className="m-auto"
+                            src={getIssueOrPrIcon()}
+                            height={20}
+                            width={20}
+                        />
+                        <h3 className="text-xs mt-2 text-center">
+                            {`${Utils.getIssueOrPullRequestNumber(props.notification.subject.url, props.notification.subject.type)}`}
+                        </h3>
                     </div>
                     <div className="truncate">
                         <div className="flex justify-between">
@@ -51,7 +56,12 @@ const Card = (props) => {
                                 <h3 className="truncate text-xs">{`in ${props.notification.repository.name}`}</h3>
                             </div>
                             <div>
-                                <a href={Utils.apiURLToGithubURL(props.notification.subject.url, props.notification.subject.type)} onClick={openInTab} target="_blank" rel="noreferrer">
+                                <a
+                                    href={Utils.apiURLToGithubURL(props.notification.subject.url, props.notification.subject.type)}
+                                    onClick={openInTab}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
                                     <button className="px-1 right-0 hover:bg-darkGrey text-xs text-blue">Open</button>
                                 </a>
                                 <button className="px-1 hover:bg-darkGrey text-xs text-blue" onClick={toggleDone}>
