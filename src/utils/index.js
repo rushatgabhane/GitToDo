@@ -18,7 +18,7 @@ function apiURLToGithubURL(URL, type) {
         return withoutApi;
     }
 
-    return withoutApi.replace('/pulls/', '/pull/');   
+    return withoutApi.replace('/pulls/', '/pull/');
 }
 
 function to(promise) {
