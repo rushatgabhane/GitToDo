@@ -1,5 +1,4 @@
+/* Importing tailwind implicitly resets CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Importing tailwind implicitly resets CSS */
