@@ -40,4 +40,5 @@ class AuthenticatedRoutes extends React.Component {
     }
 }
 
+
 export default AuthenticatedRoutes;
