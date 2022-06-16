@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://github.com/rushatgabhane/GitToDo/edit/main/README.md#------gittodo"><img src="https://user-images.githubusercontent.com/29673073/174050610-16d37476-335c-47d8-851e-d531ecd40c8a.png" width="100"></a>
+  <a href="https://github.com/rushatgabhane/GitToDo#features"><img src="https://user-images.githubusercontent.com/29673073/174050610-16d37476-335c-47d8-851e-d531ecd40c8a.png" width="100"></a>
   <br>
   GitToDo
 </h1>
