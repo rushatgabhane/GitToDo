@@ -25,8 +25,8 @@ https://user-images.githubusercontent.com/29673073/173961439-a4a0c6fb-d949-46fe-
 ## Run the app
 `npm start`
 
-## Build for production
+## 🛠 Build for production
 `npm run build`
 
-## Contributing
-Create an issue or pull request to get started
+## 🤝 Contributing
+Contributions, issues and feature requests are welcome!
