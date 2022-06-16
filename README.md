@@ -13,7 +13,7 @@ ToDo list for your GitHub notifications. Available on MacOS.
 * Notifications are sorted by modified time 🕓
 * GitHub API is polled every 5 seconds for new notifications, and app is updated with **minimum re-renders**
 * GitHub OAuth
-* Navigate with keyboard, and access the app from any desktop using `⌘ + L` ⌨️
+* Navigate with keyboard, and access the app from any workspace using `⌘ + L` ⌨️
 
 ## Demo
 
