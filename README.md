@@ -1,4 +1,8 @@
-# GitToDo
+<h1 align="center">
+  <img src="https://user-images.githubusercontent.com/29673073/174050610-16d37476-335c-47d8-851e-d531ecd40c8a.png" width="100">
+  <br>
+  GitToDo
+</h1>
 
 Streamline your workflow, stay on top of issues and pull requests. <br />
 ToDo list for your GitHub notifications. Available on MacOS.
