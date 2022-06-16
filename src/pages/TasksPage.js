@@ -54,7 +54,7 @@ class TasksPage extends React.Component {
     }
 
     toggleDone(notificationId) {
-        const notification = _.find(this.props.notifications, notif => notif.id == notificationId);
+        const notification = _.find(this.props.notifications, notification => notification.id == notificationId);
         if (!notification) {
             return;
         }
